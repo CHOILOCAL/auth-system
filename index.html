@@ -99,6 +99,17 @@ Error generating stack: `+l.message+`
 </script>
 
     <div id="root"></div>
+    <script>
+      // GitHub Pages SPA 라우팅 처리
+      // 404.html에서 리다이렉트된 경로를 복원
+      (function() {
+        var redirect = sessionStorage.redirect;
+        delete sessionStorage.redirect;
+        if (redirect && redirect !== location.href) {
+          history.replaceState(null, null, redirect);
+        }
+      })();
+    </script>
     <script
       defer
       src="https://manus-analytics.com/umami"
