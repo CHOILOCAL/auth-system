@@ -1,0 +1,559 @@
+// ============================================================
+// Design Philosophy: Precision Engineering
+// - 비대칭 2단 레이아웃: 좌측 브랜딩 40% + 우측 폼 60%
+// - Sky Blue 강조색, 기하학적 패턴 배경
+// - 정밀한 애니메이션과 전환 효과
+// ============================================================
+
+@use 'mixins' as *;
+
+// ── 메인 레이아웃 ─────────────────────────────────────────────
+
+.authLayout {
+  @include auth-split-layout;
+  background: #F8FAFC;
+}
+
+// ── 브랜드 패널 (좌측) ────────────────────────────────────────
+
+.brandPanel {
+  @include auth-brand-panel;
+  @include geometric-pattern;
+  background-color: #0F172A;
+  color: white;
+}
+
+.brandContent {
+  position: relative;
+  z-index: 1;
+}
+
+.brandLogo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 3rem;
+}
+
+.brandLogoIcon {
+  width: 2.5rem;
+  height: 2.5rem;
+  background: linear-gradient(135deg, #0EA5E9, #6366F1);
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.brandLogoText {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: white;
+}
+
+.brandHeadline {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 2.25rem;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+  color: white;
+  margin-bottom: 1.5rem;
+
+  span {
+    background: linear-gradient(135deg, #0EA5E9, #38BDF8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+}
+
+.brandDescription {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.65);
+  max-width: 28rem;
+}
+
+// ── 보안 배지 목록 ────────────────────────────────────────────
+
+.securityBadges {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  margin-top: 2.5rem;
+}
+
+.securityBadge {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.875rem 1rem;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.625rem;
+  backdrop-filter: blur(8px);
+  transition: background 0.2s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.09);
+  }
+}
+
+.securityBadgeIcon {
+  width: 2rem;
+  height: 2rem;
+  background: linear-gradient(135deg, rgba(14, 165, 233, 0.2), rgba(99, 102, 241, 0.2));
+  border-radius: 0.375rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.securityBadgeText {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 500;
+}
+
+// ── 하단 통계 ─────────────────────────────────────────────────
+
+.brandStats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.brandStat {
+  text-align: center;
+}
+
+.brandStatValue {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #0EA5E9;
+  letter-spacing: -0.02em;
+}
+
+.brandStatLabel {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.5);
+  margin-top: 0.25rem;
+}
+
+// ── 폼 패널 (우측) ────────────────────────────────────────────
+
+.formPanel {
+  @include auth-form-panel;
+}
+
+.formContainer {
+  width: 100%;
+  max-width: 26rem;
+  animation: slideInUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+// ── 폼 헤더 ───────────────────────────────────────────────────
+
+.formHeader {
+  margin-bottom: 2rem;
+}
+
+.formTitle {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.875rem;
+  font-weight: 800;
+  color: #0F172A;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+}
+
+.formSubtitle {
+  font-size: 0.9375rem;
+  color: #64748B;
+  line-height: 1.6;
+}
+
+// ── 소셜 로그인 버튼 ──────────────────────────────────────────
+
+.socialButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.socialButton {
+  @include focus-ring;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 0.625rem;
+  background: white;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #0F172A;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &:hover {
+    border-color: #CBD5E1;
+    background: #F8FAFC;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+  }
+}
+
+.socialButtonIcon {
+  width: 1.25rem;
+  height: 1.25rem;
+  flex-shrink: 0;
+}
+
+// ── 구분선 ────────────────────────────────────────────────────
+
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 1.5rem 0;
+
+  &::before,
+  &::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: #E2E8F0;
+  }
+
+  span {
+    font-size: 0.8125rem;
+    color: #94A3B8;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+}
+
+// ── 입력 필드 그룹 ────────────────────────────────────────────
+
+.fieldGroup {
+  @include input-focus-line;
+  margin-bottom: 1.25rem;
+}
+
+.fieldLabel {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.01em;
+}
+
+.fieldInput {
+  @include focus-ring;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 0.625rem;
+  font-size: 0.9375rem;
+  color: #0F172A;
+  background: white;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  outline: none;
+
+  &::placeholder {
+    color: #94A3B8;
+  }
+
+  &:focus {
+    border-color: #0EA5E9;
+    box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
+  }
+
+  &.fieldInputError {
+    border-color: #EF4444;
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+  }
+}
+
+.fieldError {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  margin-top: 0.375rem;
+  font-size: 0.8125rem;
+  color: #EF4444;
+  font-weight: 500;
+}
+
+// ── 비밀번호 강도 표시기 ──────────────────────────────────────
+
+.passwordStrength {
+  margin-top: 0.5rem;
+}
+
+.passwordStrengthBar {
+  display: flex;
+  gap: 0.25rem;
+  margin-bottom: 0.375rem;
+}
+
+.passwordStrengthSegment {
+  flex: 1;
+  height: 3px;
+  border-radius: 2px;
+  background: #E2E8F0;
+  transition: background 0.3s ease;
+
+  &.active {
+    &.weak { background: #EF4444; }
+    &.fair { background: #F59E0B; }
+    &.good { background: #10B981; }
+    &.strong { background: #0EA5E9; }
+  }
+}
+
+.passwordStrengthLabel {
+  font-size: 0.75rem;
+  color: #64748B;
+}
+
+// ── 에러 알림 배너 ────────────────────────────────────────────
+
+.errorBanner {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.875rem 1rem;
+  background: #FEF2F2;
+  border: 1px solid #FECACA;
+  border-radius: 0.625rem;
+  margin-bottom: 1.25rem;
+  animation: shakeX 0.4s ease;
+}
+
+.errorBannerIcon {
+  flex-shrink: 0;
+  color: #EF4444;
+  margin-top: 0.125rem;
+}
+
+.errorBannerText {
+  font-size: 0.875rem;
+  color: #DC2626;
+  line-height: 1.5;
+}
+
+// ── 성공 알림 배너 ────────────────────────────────────────────
+
+.successBanner {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.875rem 1rem;
+  background: #F0FDF4;
+  border: 1px solid #BBF7D0;
+  border-radius: 0.625rem;
+  margin-bottom: 1.25rem;
+}
+
+.successBannerIcon {
+  flex-shrink: 0;
+  color: #10B981;
+}
+
+.successBannerText {
+  font-size: 0.875rem;
+  color: #059669;
+  line-height: 1.5;
+}
+
+// ── 제출 버튼 ─────────────────────────────────────────────────
+
+.submitButton {
+  @include focus-ring;
+  width: 100%;
+  padding: 0.875rem 1.5rem;
+  background: linear-gradient(135deg, #0EA5E9, #0284C7);
+  color: white;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 0.625rem;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  letter-spacing: 0.01em;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.15), transparent);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+
+  &:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(14, 165, 233, 0.35);
+
+    &::before {
+      opacity: 1;
+    }
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
+    box-shadow: 0 4px 12px rgba(14, 165, 233, 0.25);
+  }
+
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+  }
+}
+
+// ── 링크 텍스트 ───────────────────────────────────────────────
+
+.authLink {
+  color: #0EA5E9;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: #0284C7;
+    text-decoration: underline;
+  }
+}
+
+.authLinkRow {
+  text-align: center;
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+  color: #64748B;
+}
+
+// ── 체크박스 ──────────────────────────────────────────────────
+
+.checkboxGroup {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.625rem;
+  margin-bottom: 1.25rem;
+}
+
+.checkboxInput {
+  width: 1rem;
+  height: 1rem;
+  border: 1.5px solid #CBD5E1;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  flex-shrink: 0;
+  margin-top: 0.125rem;
+  accent-color: #0EA5E9;
+}
+
+.checkboxLabel {
+  font-size: 0.875rem;
+  color: #475569;
+  line-height: 1.5;
+}
+
+// ── 모바일 로고 (폼 패널 상단) ────────────────────────────────
+
+.mobileLogo {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  margin-bottom: 2rem;
+
+  @include respond-to('lg') {
+    display: none;
+  }
+}
+
+.mobileLogoIcon {
+  width: 2rem;
+  height: 2rem;
+  background: linear-gradient(135deg, #0EA5E9, #6366F1);
+  border-radius: 0.375rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mobileLogoText {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #0F172A;
+  letter-spacing: -0.02em;
+}
+
+// ── 애니메이션 ────────────────────────────────────────────────
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(1.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shakeX {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-6px); }
+  40% { transform: translateX(6px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(4px); }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.spinner {
+  display: inline-block;
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+.loadingRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}

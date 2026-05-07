@@ -1,0 +1,155 @@
+// ============================================================
+// Design Philosophy: Precision Engineering
+// - 재사용 가능한 SCSS 믹스인 모음
+// - Tailwind와 하이브리드로 사용되는 복잡한 레이아웃 전용
+// ============================================================
+
+// ── 반응형 브레이크포인트 ─────────────────────────────────────
+$breakpoints: (
+  'sm': 640px,
+  'md': 768px,
+  'lg': 1024px,
+  'xl': 1280px,
+  '2xl': 1536px,
+);
+
+@mixin respond-to($breakpoint) {
+  $value: map-get($breakpoints, $breakpoint);
+  @if $value {
+    @media (min-width: $value) {
+      @content;
+    }
+  } @else {
+    @warn "Unknown breakpoint: #{$breakpoint}";
+  }
+}
+
+// ── 인증 레이아웃 믹스인 ──────────────────────────────────────
+
+@mixin auth-split-layout {
+  display: grid;
+  min-height: 100vh;
+  grid-template-columns: 1fr;
+
+  @include respond-to('lg') {
+    grid-template-columns: 40% 60%;
+  }
+}
+
+@mixin auth-brand-panel {
+  position: relative;
+  overflow: hidden;
+  display: none;
+
+  @include respond-to('lg') {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 3rem;
+  }
+}
+
+@mixin auth-form-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 1.5rem;
+  min-height: 100vh;
+
+  @include respond-to('sm') {
+    padding: 2.5rem 2rem;
+  }
+
+  @include respond-to('lg') {
+    padding: 3rem 4rem;
+    min-height: unset;
+  }
+}
+
+// ── 입력 필드 포커스 애니메이션 ───────────────────────────────
+
+@mixin input-focus-line {
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #0EA5E9;
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  &:focus-within::after {
+    width: 100%;
+  }
+}
+
+// ── 기하학적 패턴 배경 ────────────────────────────────────────
+
+@mixin geometric-pattern {
+  background-image:
+    radial-gradient(circle at 20% 50%, rgba(14, 165, 233, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(99, 102, 241, 0.1) 0%, transparent 40%),
+    radial-gradient(circle at 60% 80%, rgba(14, 165, 233, 0.08) 0%, transparent 40%);
+}
+
+// ── 카드 스타일 ───────────────────────────────────────────────
+
+@mixin precision-card {
+  background: white;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow:
+    0 1px 3px rgba(15, 23, 42, 0.06),
+    0 4px 16px rgba(15, 23, 42, 0.04);
+  border-radius: 0.75rem;
+}
+
+// ── 텍스트 트런케이션 ─────────────────────────────────────────
+
+@mixin text-truncate($lines: 1) {
+  @if $lines == 1 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  } @else {
+    display: -webkit-box;
+    -webkit-line-clamp: $lines;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
+
+// ── 스크롤바 스타일 ───────────────────────────────────────────
+
+@mixin custom-scrollbar($width: 6px, $track-color: #f1f5f9, $thumb-color: #cbd5e1) {
+  &::-webkit-scrollbar {
+    width: $width;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $track-color;
+    border-radius: 3px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $thumb-color;
+    border-radius: 3px;
+
+    &:hover {
+      background: darken($thumb-color, 10%);
+    }
+  }
+}
+
+// ── 포커스 링 ─────────────────────────────────────────────────
+
+@mixin focus-ring($color: #0EA5E9) {
+  &:focus-visible {
+    outline: 2px solid $color;
+    outline-offset: 2px;
+  }
+}

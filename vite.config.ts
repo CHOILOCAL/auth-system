@@ -206,6 +206,13 @@ function vitePluginStorageProxy(): Plugin {
 const plugins = [react(), tailwindcss(), jsxLocPlugin(), vitePluginManusRuntime(), vitePluginManusDebugCollector(), vitePluginStorageProxy()];
 
 export default defineConfig({
+  define: {
+    'import.meta.env.VITE_SUPABASE_URL': JSON.stringify('https://aqfaxvwxmrwjyufghryr.supabase.co'),
+    'import.meta.env.VITE_SUPABASE_ANON_KEY': JSON.stringify('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFxZmF4dnd4bXJ3anl1ZmdocnlyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgwMzY1ODMsImV4cCI6MjA5MzYxMjU4M30.UU4K1jBwY3r-O3qSqgn-SDnlPjhK-8rVvg3ErZAj3DM'),
+    'import.meta.env.VITE_KAKAO_REST_API_KEY': JSON.stringify('5e4507b775c782a8556fffbbbf9aab40'),
+    'import.meta.env.VITE_APP_NAME': JSON.stringify('SecureAuth'),
+    'import.meta.env.VITE_APP_URL': JSON.stringify('https://3000-i12ix36p15mp0w1k29sws-1f072bef.sg1.manus.computer'),
+  },
   plugins,
   resolve: {
     alias: {
