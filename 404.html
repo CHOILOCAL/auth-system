@@ -1,21 +1,12 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html>
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SecureAuth</title>
+    <meta charset="utf-8" />
+    <title>Redirecting...</title>
     <script>
-      // GitHub Pages SPA 라우팅 처리
-      // 모든 404 요청을 index.html로 리다이렉트하면서 원래 경로 보존
-      (function() {
-        var l = window.location;
-        l.replace(
-          l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
-          '/auth-system/index.html?redirect=' +
-          l.pathname.replace(/\/$/, '') + (l.search || '') +
-          l.hash
-        );
-      })();
+      // GitHub Pages SPA 라우팅: 모든 404를 index.html로 리다이렉트
+      var path = window.location.pathname.replace(/^\/auth-system/, '');
+      window.location.replace('/auth-system/index.html?p=' + path);
     </script>
   </head>
   <body>
