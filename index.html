@@ -32,8 +32,8 @@
       base-uri 'self';
       form-action 'self';
     " />
-    <script type="module" crossorigin src="/assets/index-D-cViRmk.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-CvUssJD2.css">
+    <script type="module" crossorigin src="/auth-system/assets/index-D54HHPPK.js"></script>
+    <link rel="stylesheet" crossorigin href="/auth-system/assets/index-CvUssJD2.css">
     <script src="/__manus__/debug-collector.js" defer></script>
   </head>
 
@@ -104,9 +104,9 @@ Error generating stack: `+l.message+`
       // 404.html에서 리다이렉트된 경로를 복원
       (function() {
         var params = new URLSearchParams(window.location.search);
-        var path = params.get('p');
-        if (path && path !== '/') {
-          window.history.replaceState(null, null, '/auth-system' + path);
+        var redirect = params.get('redirect');
+        if (redirect && redirect !== '/' && redirect !== '') {
+          window.history.replaceState(null, null, '/auth-system' + redirect);
         }
       })();
     </script>
