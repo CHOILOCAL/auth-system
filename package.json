@@ -12,7 +12,7 @@
     "format": "prettier --write .",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist/public"
-  }
+  },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
     "@radix-ui/react-accordion": "^1.2.12",
