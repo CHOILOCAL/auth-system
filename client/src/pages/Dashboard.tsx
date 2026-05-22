@@ -16,7 +16,7 @@ import { ProtectedRoute } from '@/components/auth/ProtectedRoute';
 const Dashboard: React.FC = () => {
   const { user, profile, session } = useAuth();
 
-  const displayName = profile?.full_name || user?.email?.split('@')[0] || '사용자';
+  const displayName = profile?.nickname || profile?.full_name || '사용자';
   const provider = profile?.provider || user?.app_metadata?.provider || 'email';
   const createdAt = user?.created_at ? new Date(user.created_at).toLocaleDateString('ko-KR', {
     year: 'numeric', month: 'long', day: 'numeric'
@@ -85,7 +85,9 @@ const Dashboard: React.FC = () => {
               <h2 className="text-xl font-bold text-slate-800" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
                 안녕하세요, {displayName}님!
               </h2>
-              <p className="text-sm text-slate-500">{user?.email}</p>
+              <p className="text-sm text-slate-500">
+                {providerLabel[provider as string] || provider} 계정
+              </p>
             </div>
           </div>
         </div>
@@ -123,10 +125,9 @@ const Dashboard: React.FC = () => {
             <div className="space-y-3">
               {[
                 { label: '사용자 ID', value: user?.id?.slice(0, 8) + '...' || '-' },
-                { label: '이메일', value: user?.email || '-' },
-                { label: '이름', value: profile?.full_name || '미설정' },
+                { label: '닉네임', value: displayName },
+                { label: '로그인 방식', value: providerLabel[provider as string] || provider },
                 { label: '가입일', value: createdAt },
-                { label: '이메일 인증', value: user?.email_confirmed_at ? '완료' : '미완료' },
               ].map((item, i) => (
                 <div key={i} className="flex items-center justify-between py-2 border-b border-slate-50 last:border-0">
                   <span className="text-xs text-slate-500">{item.label}</span>

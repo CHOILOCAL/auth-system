@@ -7,8 +7,8 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'wouter';
 import {
-  ShieldCheck, LayoutDashboard, User, Settings,
-  Lock, LogOut, Menu, X, ChevronRight, Bell
+  ShieldCheck, LayoutDashboard, User, Settings, MessageSquare,
+  Lock, LogOut, Menu, ChevronRight, Bell
 } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { ROUTES } from '@/lib/routes';
@@ -21,6 +21,7 @@ interface NavItem {
 
 const navItems: NavItem[] = [
   { path: ROUTES.DASHBOARD, label: '대시보드', icon: <LayoutDashboard className="w-4 h-4" /> },
+  { path: ROUTES.BOARD, label: '게시판', icon: <MessageSquare className="w-4 h-4" /> },
   { path: ROUTES.PROFILE, label: '프로필', icon: <User className="w-4 h-4" /> },
   { path: ROUTES.SETTINGS, label: '설정', icon: <Settings className="w-4 h-4" /> },
   { path: ROUTES.SECURITY, label: '보안', icon: <Lock className="w-4 h-4" /> },
@@ -33,9 +34,11 @@ interface DashboardLayoutProps {
 const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
   const [location] = useLocation();
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const { user, profile, signOut } = useAuth();
+  const { profile, signOut } = useAuth();
 
-  const displayName = profile?.full_name || user?.email?.split('@')[0] || '사용자';
+  // Privacy: never show email in chrome. Nickname (with full_name fallback for
+  // legacy data) is the only public identifier we render.
+  const displayName = profile?.nickname || profile?.full_name || '사용자';
   const avatarLetter = displayName.charAt(0).toUpperCase();
 
   const handleSignOut = async () => {
@@ -85,7 +88,9 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
           </div>
           <div className="flex-1 min-w-0">
             <p className="text-sm font-semibold text-white truncate">{displayName}</p>
-            <p className="text-xs text-slate-400 truncate">{user?.email}</p>
+            <p className="text-xs text-slate-400 truncate capitalize">
+              {profile?.provider ?? '계정'}
+            </p>
           </div>
         </div>
         <button

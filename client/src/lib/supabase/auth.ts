@@ -89,12 +89,17 @@ export const signInWithGoogle = async () => {
 };
 
 // ── Kakao OAuth ───────────────────────────────────────────────
-
+// Privacy: request the minimum Kakao consent items. We only need a public
+// nickname; we do NOT ask for email, phone, gender, age, or birth.
+// `scopes` is forwarded as-is to Kakao's authorize endpoint, but the source of
+// truth is the consent items configured in the Kakao Developer Console — this
+// list only narrows what's *requested* among already-enabled items.
 export const signInWithKakao = async () => {
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: 'kakao',
     options: {
       redirectTo: getOAuthRedirectUrl('/auth/callback'),
+      scopes: 'profile_nickname',
     },
   });
   if (error) throw normalizeAuthError(error);
@@ -154,7 +159,10 @@ export const getProfile = async (userId: string) => {
 
 // ── 프로필 업데이트 ───────────────────────────────────────────
 
-export const updateProfile = async (userId: string, updates: { full_name?: string; avatar_url?: string }) => {
+export const updateProfile = async (
+  userId: string,
+  updates: { nickname?: string; full_name?: string; avatar_url?: string }
+) => {
   const { data, error } = await supabase
     .from('profiles')
     .update({ ...updates, updated_at: new Date().toISOString() })

@@ -6,8 +6,12 @@
 
 export interface UserProfile {
   id: string;
-  email: string;
-  full_name: string | null;
+  /** Canonical public display name. */
+  nickname: string;
+  /** @deprecated Internal only; never display in UI. */
+  email?: string | null;
+  /** @deprecated Use `nickname`. */
+  full_name?: string | null;
   avatar_url: string | null;
   provider: 'email' | 'google' | 'kakao';
   created_at: string;

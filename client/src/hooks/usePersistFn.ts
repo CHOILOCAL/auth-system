@@ -1,5 +1,6 @@
 import { useRef } from "react";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any -- generic constraint
 type noop = (...args: any[]) => any;
 
 /**

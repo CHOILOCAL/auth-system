@@ -14,7 +14,7 @@ import styles from '@/styles/modules/auth.module.scss';
 
 const Security: React.FC = () => {
   const { user, signOut } = useAuth();
-  const [currentPassword, setCurrentPassword] = useState('');
+  const [, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showNew, setShowNew] = useState(false);

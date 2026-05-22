@@ -19,6 +19,8 @@ export const ROUTES = {
   PROFILE: '/dashboard/profile',
   SETTINGS: '/dashboard/settings',
   SECURITY: '/dashboard/security',
+  BOARD: '/dashboard/board',
+  BOARD_DETAIL: '/dashboard/board/:id',
 } as const;
 
 export type AppRoute = typeof ROUTES[keyof typeof ROUTES];
@@ -38,6 +40,8 @@ export const PROTECTED_ROUTES: AppRoute[] = [
   ROUTES.PROFILE,
   ROUTES.SETTINGS,
   ROUTES.SECURITY,
+  ROUTES.BOARD,
+  ROUTES.BOARD_DETAIL,
 ];
 
 export const isPublicRoute = (path: string): boolean => {
